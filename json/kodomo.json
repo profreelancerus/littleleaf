@@ -1,0 +1,40 @@
+{
+  "products": [
+    {
+      "id": "kodomo1",
+      "name": "Kodomo Baby Shampoo",
+      "price": 500,
+      "currency": "BDT",
+      "images": ["/image/asw.png", "/image/asdx.jpeg", "/image/asd.jpeg"],
+      "video": "https://youtu.be/Ov0YGGSY6gY?si=tIo156swy6WAs7r5",
+      "description": "Gentle baby shampoo, 100ml — mild and safe for newborns.",
+      "country_of_origin": "THAILAND",
+      "manufacturer": {"name": "Lion Corporation (Thailand) Limited", "address": "989 Kingbridge Tower, Floor 36-37, Rama 3 Road, Bangpongpang, Yannawa, Bangkok 10120, Thailand"},
+      "importer": {"name": "Pentagon International Limited", "address": "Rangs Nasim Square,275/D, Suite #C 11, Lift Level #11C, Road #27, Dhanmondi, Dhaka-1209, Bangladesh"},
+      "stock": 100,
+      "note": "Please check the importer sticker on each product before purchase.",
+      "min_order_quantity": 1,
+      "max_order_quantity": 5,
+      "category": "kodomo",
+      "link": "../product/product.html?id=kodomo1&cat=kodomo"
+    },
+    {
+      "id": "kodomo2",
+      "name": "Kodomo Baby Soap",
+      "price": 100,
+      "currency": "BDT",
+      "images": ["/image/asw.png", "/image/asdx.jpeg", "/image/asd.jpeg"],
+      "video": null,
+      "description": "Natural baby soap, 75g — gentle and safe for newborns.",
+      "country_of_origin": "THAILAND",
+      "manufacturer": {"name": "Lion Corporation (Thailand) Limited", "address": "989 Kingbridge Tower, Floor 36-37, Rama 3 Road, Bangpongpang, Yannawa, Bangkok 10120, Thailand"},
+      "importer": {"name": "Pentagon International Limited", "address": "Rangs Nasim Square,275/D, Suite #C 11, Lift Level #11C, Road #27, Dhanmondi, Dhaka-1209, Bangladesh"},
+      "stock": 80,
+      "note": "Please check the importer sticker on each product before purchase.",
+      "min_order_quantity": 1,
+      "max_order_quantity": 5,
+      "category": "kodomo",
+      "link": "../product/product.html?id=kodomo2&cat=kodomo"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "products": [
+    {
+      "id": "kidlon1",
+      "name": "Kidlon Milk Formula Stage 1",
+      "price": 850,
+      "currency": "BDT",
+      "images": ["/image/asw.png", "/image/asdx.jpeg", "/image/asd.jpeg"],
+      "video": null,
+      "description": "High quality infant formula suitable from birth to 6 months.",
+      "country_of_origin": "Netherlands",
+      "manufacturer": {"name": "Kidlon Nutrition BV", "address": "Amsterdam, Netherlands"},
+      "importer": {"name": "Pentagon International Limited", "address": "Rangs Nasim Square,275/D, Suite #C 11, Lift Level #11C, Road #27, Dhanmondi, Dhaka-1209, Bangladesh"},
+      "stock": 0,
+      "note": "Please check the importer sticker on each product before purchase.",
+      "min_order_quantity": 1,
+      "max_order_quantity": 5,
+      "category": "kidlon",
+      "link": "../product/product.html?id=kidlon1&cat=kidlon"
+
+    },
+    {
+      "id": "kidlon2",
+      "name": "Kidlon Milk Formula Stage 2",
+      "price": 900,
+      "currency": "BDT",
+      "images": ["/image/asw.png", "/image/asdx.jpeg", "/image/asd.jpeg"],
+      "description": "Follow-up formula for babies aged 6 to 12 months.",
+      "country_of_origin": "Netherlands",
+      "manufacturer": {"name": "Kidlon Nutrition BV", "address": "Amsterdam, Netherlands"},
+      "importer": {"name": "Pentagon International Limited", "address": "Rangs Nasim Square,275/D, Suite #C 11, Lift Level #11C, Road #27, Dhanmondi, Dhaka-1209, Bangladesh"},
+      "stock": 10,
+      "note": "Please check the importer sticker on each product before purchase.",
+      "min_order_quantity": 1,
+      "max_order_quantity": 5,
+      "category": "kidlon",
+      "link": "../product/product.html?id=kidlon2&cat=kidlon"
+
+    }
+    
+  ]
+}

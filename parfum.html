@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OTHER Products</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+ <!-- Header Section -->
+  <div class="header-container">
+    <img src="littleleaf.png" alt="logo" style="height:50px; margin-right: auto; margin-left: 10px;margin-top: 10px; border-radius: 50px;">
+    <img src="hadder.jpeg" alt="hadder" style="height: 50px;margin-left: 75px; align-items: center; margin-top: 10px; border-radius: 20px;">
+    <img src="khulna.png" alt="24hr delivery" style="height: 50px; float: right; margin-right: 10px; margin-top: 10px;">
+  </div>
+   <hr>
+ <!-- Header Navigation -->
+  <header>
+    <button onclick="window.location.href='kodomo.html'">KODOMO</button>
+    <button onclick="window.location.href='kidlon.html'">KIDLON</button>
+    <button class="active" onclick="window.location.href='parfum.html'">OTHER</button>
+  </header>
+
+  <!-- Product Grid -->
+  <main class="product-grid" id="product-grid">
+    <!-- JS দিয়ে parfum.json থেকে লোড হবে -->
+  </main>
+
+  <!-- Mini Cart -->
+<div class="mini-cart">
+  <div class="cart-items" id="cart-items">
+    Cart is empty
+  </div>
+  <a href="#" class="confirm-btn" id="confirm-btn" target="_blank">
+    <i class="fab fa-whatsapp"></i> WhatsApp
+  </a>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-container">
+    <!-- About Us -->
+    <!-- About Us section for "little leaf" -->
+<style>
+  /* About Us component (mobile-first) */
+  .ll-about {
+    box-sizing: border-box;
+    max-width: 980px;
+    margin: 18px auto;
+    padding: 18px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(18, 38, 63, 0.06);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    color: #14232a;
+    line-height: 1.5;
+  }
+
+  .ll-about__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #2d6a4f;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+  }
+
+  .ll-about__title {
+    font-size: 1.35rem;
+    margin: 4px 0 12px;
+    font-weight: 800;
+    color: #0f1720;
+  }
+
+  .ll-about__lead {
+    margin: 0 0 12px;
+    color: #22343a;
+    font-size: 1rem;
+  }
+
+  .ll-about__note {
+    margin: 12px 0;
+    color: #334e52;
+    font-size: 0.97rem;
+  }
+
+  .ll-about__list {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0 18px;
+    display: grid;
+    gap: 8px;
+  }
+
+  .ll-about__list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f6fffa;
+    border: 1px solid rgba(45, 106, 79, 0.08);
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: #133d32;
+    font-weight: 600;
+  }
+
+  .ll-about__list li .tick {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    background: linear-gradient(180deg,#2d6a4f,#1f6b4b);
+    color: #fff;
+    font-size: 0.95rem;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+  }
+
+  .ll-about__delivery {
+    margin-top: 6px;
+    padding: 12px;
+    background: #fff8e6;
+    border-left: 4px solid #f1c40f;
+    border-radius: 8px;
+    color: #6b4f00;
+    font-weight: 700;
+  }
+
+  .ll-about__cta {
+    margin-top: 16px;
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .ll-about__brand {
+    font-weight: 800;
+    color: #0f1720;
+  }
+
+  @media (min-width: 720px) {
+    .ll-about { padding: 24px; }
+    .ll-about__title { font-size: 1.6rem; }
+    .ll-about__lead { font-size: 1.05rem; }
+  }
+</style>
+
+<section class="ll-about" aria-labelledby="ll-about-title">
+  <div class="ll-about__eyebrow">🌿 <span>About Us</span></div>
+
+  <h2 id="ll-about-title" class="ll-about__title">
+    little leaf — Authentic personal care & fragrances in Bangladesh
+  </h2>
+
+  <p class="ll-about__lead">
+    Welcome to <strong class="ll-about__brand">little leaf</strong> — your trusted online destination for authentic personal care and fragrance products in Bangladesh.
+  </p>
+
+  <p class="ll-about__note">
+    In Bangladesh, <strong>Kodomo</strong> products are officially imported by <strong>PENTAGON INTERNATIONAL LIMITED</strong>.
+    Pentagon also proudly imports <strong>MILTON-LLOYD, London (Est. 1975)</strong>, so every item you find here is genuine and authorized.
+  </p>
+
+  <ul class="ll-about__list" aria-label="Key benefits">
+    <li><span class="tick">✓</span> 100% Genuine & Authorized Imports</li>
+    <li><span class="tick">✓</span> Affordable & Transparent Pricing</li>
+    <li><span class="tick">✓</span> Fast & Reliable Service</li>
+  </ul>
+
+  <div class="ll-about__delivery">
+    Delivery promise: <strong>We deliver within 24 hours</strong> — <em>only in Khulna zone</em>.
+  </div>
+
+  <p style="margin-top:12px; color:#25403b;">
+    Shop with confidence at <strong>little leaf</strong>. Every product you purchase carries the assurance of authenticity and quality.
+  </p>
+
+  <div class="ll-about__cta">
+    <!-- optional: you can link to contact or shop -->
+    <a href="/parfum.html" style="background:#2d6a4f;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:700;">
+      Shop other
+    </a>
+    <a href="#" style="background:#fff;border:1px solid #e6f0ea;color:#2d6a4f;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:700;">
+      Contact Us
+    </a>
+  </div>
+</section>
+
+    <!-- Quick Links -->
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="kodomo.html">Kodomo</a></li>
+        <li><a href="kidlon.html">Kidlon</a></li>
+        <li><a href="parfum.html">Other</a></li>
+        <li><a href="">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="footer-contact">
+      <h3>Contact Us</h3>
+      <p>📞 01810962851</p>
+      <p>🏠 Khulna, Bangladesh</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    &copy; 2025 Little Leaf. All Rights Reserved.
+  </div>
+</footer>
+  <script src="js/main.js"></script>
+  <script>
+    loadProducts('json/parfum.json'); // JSON থেকে প্রোডাক্ট লোড করবে
+  </script>
+</body>
+</html>  

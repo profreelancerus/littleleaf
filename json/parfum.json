@@ -1,0 +1,40 @@
+{
+  "products": [
+    {
+      "id": "parfum1",
+      "name": "Baby Gentle Perfume",
+      "price": 300,
+      "currency": "BDT",
+      "images": ["/image/asw.png", "/image/asdx.jpeg", "/image/asd.jpeg"],
+      "video": null,
+      "description": "Soft and gentle perfume for babies.",
+      "country_of_origin": "France",
+      "manufacturer": {"name": "Baby Perfumes SA", "address": "Paris, France"},
+      "importer": {"name": "Pentagon International Limited", "address": "Rangs Nasim Square,275/D, Suite #C 11, Lift Level #11C, Road #27, Dhanmondi, Dhaka-1209, Bangladesh"},
+      "stock": 5,
+      "note": "Please check the importer sticker on each product before purchase.",
+      "min_order_quantity": 1,
+      "max_order_quantity": 5,
+      "category": "parfum",
+      "link": "../product/product.html?id=parfum1&cat=parfum"
+    },
+    {
+      "id": "parfum2",
+      "name": "Little Leaf Perfume",
+      "price": 280,
+      "currency": "BDT",
+      "images": ["/image/asw.png", "/image/asdx.jpeg", "/image/asd.jpeg"],
+      "video": null,
+      "description": "Mild perfume suitable for babies' sensitive skin.",
+      "country_of_origin": "France",
+      "manufacturer": {"name": "Baby Perfumes SA", "address": "Paris, France"},
+      "importer": {"name": "Pentagon International Limited", "address": "Rangs Nasim Square,275/D, Suite #C 11, Lift Level #11C, Road #27, Dhanmondi, Dhaka-1209, Bangladesh"},
+      "stock": 60,
+      "note": "Please check the importer sticker on each product before purchase.",
+      "min_order_quantity": 1,
+      "max_order_quantity": 5,
+      "category": "parfum",
+      "link": "../product/product.html?id=parfum2&cat=parfum" 
+    }
+  ]
+}  
