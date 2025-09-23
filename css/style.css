@@ -460,7 +460,7 @@ header button.active {
 /* ensure images inside .slide fit same style */
 .gallery .slide img {
   width: 100%;
-  height: 400px;
+  height: 100%;
   display: block;
   border-radius: 12px;
 }
