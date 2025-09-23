@@ -162,7 +162,6 @@ async function loadProductDetail() {
     document.querySelector(".info").innerHTML = `
       <li><strong>Country of Origin:</strong> ${product.country_of_origin}</li>
       <li><strong>Manufacturer:</strong> ${product.manufacturer.name}, ${product.manufacturer.address}</li>
-      <li><strong>Video:</strong> ${product.video ? `<a href="${product.video}" target="_blank">Watch Video</a>` : 'N/A'}</li>
       <li><strong>Importer:</strong> ${product.importer.name}, ${product.importer.address}</li>
       <li><strong>⚠ Note:</strong> ${product.note}</li>
       <li><strong>SKU:</strong> ${product.id}</li>

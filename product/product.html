@@ -53,7 +53,7 @@
     .nav-buttons {
       display: flex;
       flex-direction: row;
-      gap: 10px;
+      gap: 7px;
       justify-content: center;
       align-items: center;
     }
@@ -67,7 +67,7 @@
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      box-shadow: #333 0px 2px 10px 0px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -115,6 +115,7 @@
       border-radius: 20px;
       box-shadow: 0 6px 15px rgba(0,0,0,0.1);
       padding: 20px;
+      box-shadow: #333 0px 2px 10px 0px;
     }
 
     /* Gallery */
@@ -138,16 +139,39 @@
       justify-content: space-between;
       margin-bottom: 20px;
     }
-    .gallery-controls button {
-      background: #4caf50;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 25px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
-    }
+    .gallery-controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* দুই বাটনের মধ্যে স্পেস */
+  margin-top: 20px;
+}
+
+.gallery-controls button {
+  background: linear-gradient(135deg, #4caf50, #45a049);
+  color: #fff;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  gap: 8px; /* টেক্সট আর আইকনের মাঝে ফাঁকা */
+}
+
+.gallery-controls button:hover {
+  background: linear-gradient(135deg, #45a049, #3e8e41);
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 12px rgba(0,0,0,0.4);
+}
+
+.gallery-controls button:active {
+  transform: translateY(0);
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+}
     .gallery-controls button:hover {
       background: #45a049;
     }
@@ -196,6 +220,7 @@
       border-radius: 50%;
       cursor: pointer;
       transition: 0.3s;
+      box-shadow: #333 0px 2px 10px 0px;
     }
     .quantity-control button:hover {
       background: #45a049;
@@ -219,6 +244,7 @@
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
+      box-shadow: #333 0px 2px 10px 0px;
     }
     #add-btn:hover {
       background: #ff6347;
@@ -274,6 +300,7 @@
       font-weight: bold;
       transition: 0.3s;
       white-space: nowrap;
+      box-shadow: #333 0px 2px 10px 0px;
     }
     .confirm-btn:hover {
       background: #20b358;
@@ -301,10 +328,40 @@
 <body class="product-page">
   <!-- Header Section -->
   <div class="header-container">
-    <img src="/littleleaf.png" alt="logo" style="height:50px; margin-right: auto; margin-left: 10px;margin-top: 10px; border-radius: 50px;">
-    <img src="/hadder.jpeg" alt="hadder" style="height: 50px;margin-left: 75px; align-items: center; margin-top: 10px; border-radius: 20px;">
-    <img src="/khulna.png" alt="24hr delivery" style="height: 50px; float: right; margin-right: 10px; margin-top: 10px;">
-  </div>
+  <!-- বামে লোগো -->
+  <img src="/littleleaf.png" alt="logo" class="logo">
+
+  <!-- মাঝে ব্যানার -->
+  <img src="/hadder.jpeg" alt="header banner" class="banner">
+
+  <!-- ডানে delivery আইকন -->
+  <img src="/khulna.png" alt="24hr delivery" class="delivery">
+</div>
+
+<style>
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* বাম-মাঝ-ডান properly set */
+  padding: 10px;
+  background: #fff; /* চাইলে ব্যাকগ্রাউন্ড দিতে পারো */
+}
+
+.header-container .logo {
+  height: 50px;
+  border-radius: 50%; /* একদম গোল */
+}
+
+.header-container .banner {
+  height: 50px;
+  border-radius: 12px;
+}
+
+.header-container .delivery {
+  height: 50px;
+}
+</style>
+
   <hr>
 
   <!-- Header Navigation -->
@@ -323,9 +380,9 @@
   <main class="product-detail">
     <div class="gallery"></div>
     <div class="gallery-controls">
-      <button id="prev-btn">&lt; Prev</button>
-      <button id="next-btn">Next &gt;</button>
-    </div>
+  <button id="prev-btn"><i class="fas fa-arrow-left"></i> Prev</button>
+  <button id="next-btn">Next <i class="fas fa-arrow-right"></i></button>
+</div>
 
     <h2></h2>
     <h1 class="priceold"></h1>
