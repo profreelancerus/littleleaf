@@ -157,7 +157,8 @@ async function loadProductDetail() {
 
     // Title / description / info
     document.querySelector("h2").innerText = product.name;
-    document.querySelector("h1").innerText = `${product.currency} ${product.price}` + (product.old_price ? ` (Old Price: ${product.currency} ${product.old_price})` : '');
+    document.querySelector(".pricecurrent").innerHTML = `MRP: ${product.mrp}৳` + (product.offer ? ` - ${product.offer}% ` : '');
+    document.querySelector("h1").innerHTML = `Now ${product.price}৳` + (product.old_price ? ` (Old Price: ${product.old_price}৳)` : '');
     document.querySelector(".desc").innerHTML = product.description;
     document.querySelector(".info").innerHTML = `
       <li><strong>Country of Origin:</strong> ${product.country_of_origin}</li>
