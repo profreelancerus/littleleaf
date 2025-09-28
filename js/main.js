@@ -46,15 +46,7 @@ async function loadProducts(jsonFile) {
   updateCartUI();
 animateOnScroll(); // ✅ Product গুলো animate হবে
 // সব product-card select করো
-const cards = document.querySelectorAll(".product-card");
-
-
-// observer attach
-cards.forEach(card => {
-  observer.observe(card);
-});
-}
-
+const cards = document.querySelectorAll(".product-card");}
 // small helpers to avoid broken quotes in injected HTML
 function escapeJs(s) {
   return String(s).replace(/'/g, "\\'");

@@ -306,28 +306,28 @@ header button.active {
 
 /* Mini Cart */
 .mini-cart {
-  position: sticky;
-  position: fixed;
-  height: 100px;
-  bottom: 0;
+  position: fixed;        /* sticky নয়, fixed করা হলো */
+  bottom: 0;              /* সবসময় স্ক্রিনের নীচে থাকবে */
   left: 0;
   right: 0;
+  height: 100px;          /* উচ্চতা ঠিক করা */
   background: #fff;
   border-top: 1px solid #ddd;
   padding: 10px 15px;
   display: flex;
   justify-content: space-between;
-  align-items: center; /* সব কন্টেন্ট একই লাইনে থাকবে */
+  align-items: center;    /* সব কন্টেন্ট এক লাইনে */
   box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-  z-index: 99;
+  z-index: 9999;          /* সব উপরের উপাদানের উপরে থাকবে */
   gap: 10px;
+  transition: transform 0.3s ease; /* animation support */
 }
 
 /* Cart Items */
 .cart-items {
   flex: 1;
-  max-height: 90px;   /* ~৩টা প্রোডাক্ট দেখাবে */
-  overflow-y: auto;   /* বেশি হলে ভেতরে স্ক্রল হবে */
+  max-height: 90px;       /* ~৩টা প্রোডাক্ট দেখাবে */
+  overflow-y: auto;       /* বেশি হলে ভেতরে স্ক্রল হবে */
   font-size: 14px;
   color: #333;
   padding-right: 5px;
@@ -344,96 +344,36 @@ header button.active {
 .cart-items::-webkit-scrollbar-thumb:hover {
   background: #999;
 }
-/* Cart Icon */
-.cart-icon {
-  position: fixed;
-  bottom: 110px;
-  right: 20px;
-  width: 55px;
-  height: 55px;
-  background: #25d366;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  cursor: pointer;
-  z-index: 100;
-  color: #fff;
-  font-size: 22px;
+
+/* Mini Cart Bounce Animation on Add */
+@keyframes mini-cart-bounce {
+  0%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-15px); }
+  60% { transform: translateY(5px); }
 }
-.cart-icon .cart-count {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  background: red;
-  color: #fff;
-  font-size: 12px;
-  font-weight: bold;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.mini-cart.bounce {
+  animation: mini-cart-bounce 0.6s ease;
 }
 
-/* Mini Cart (Hidden by default) */
+/* Main content wrapper */
+.main-content {
+  padding-bottom: 120px; /* mini-cart height + কিছু gap */
+}
 .mini-cart {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
+  height: 100px; /* উচ্চতা নিশ্চিত */
   background: #fff;
   border-top: 1px solid #ddd;
   padding: 10px 15px;
-  display: none;  /* hidden */
+  display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
   z-index: 99;
-  gap: 10px;
 }
-/* Cart Icon Floating Ball */
-.cart-icon {
-  position: fixed;
-  bottom: 110px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  background: #25d366;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.5);
-  cursor: grab;
-  z-index: 1000;
-  color: #fff;
-  font-size: 24px;
-  user-select: none;
-  transition: transform 0.2s;
-}
-.cart-icon:active {
-  cursor: grabbing;
-  transform: scale(0.95);
-}
-.cart-icon .cart-count {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  background: red;
-  color: #fff;
-  font-size: 12px;
-  font-weight: bold;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 
 /* Confirm Button */
 .confirm-btn {
@@ -826,6 +766,8 @@ header button.active {
       box-shadow: 0 6px 15px rgba(0,0,0,0.1);
       padding: 20px;
       box-shadow: #333 0px 2px 10px 0px;
+      animation: fadeInUp 0.6s ease;
+      padding-bottom: 100px; /* নিচে mini-cart এর জন্য জায়গা */
     }
 
     /* Gallery */
