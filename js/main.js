@@ -43,6 +43,16 @@ async function loadProducts(jsonFile) {
     console.error("Error loading products:", e);
   }
   updateCartUI();
+  updateCartUI();
+animateOnScroll(); // ✅ Product গুলো animate হবে
+// সব product-card select করো
+const cards = document.querySelectorAll(".product-card");
+
+
+// observer attach
+cards.forEach(card => {
+  observer.observe(card);
+});
 }
 
 // small helpers to avoid broken quotes in injected HTML
@@ -88,10 +98,13 @@ function removeFromCart(id) {
 // ==================== Update Cart UI ====================
 function updateCartUI() {
   let cartDiv = document.getElementById("cart-items");
+  let cartCount = document.getElementById("cart-count"); // 🛍️ bag icon counter
+
   if (!cartDiv) return;
 
   if (cart.length === 0) {
     cartDiv.innerHTML = "Cart is empty";
+    if (cartCount) cartCount.innerText = "0"; // ❌ empty হলে 0
   } else {
     cartDiv.innerHTML = cart.map((item, i) => `
       <div class="cart-line">
@@ -99,20 +112,26 @@ function updateCartUI() {
         <button class="remove-btn" onclick="removeFromCart('${item.id}')">&times;</button>
       </div>
     `).join("");
+
+    if (cartCount) {
+      // 🛒 মোট প্রোডাক্ট সংখ্যা দেখাবে
+      let totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+      cartCount.innerText = totalQty;
+    }
   }
 
-  // WhatsApp Button
-let waBtn = document.getElementById("confirm-btn");
-if (waBtn) {
-  let message = cart.map((item, i) =>
-    `${i + 1}. ${item.name} | ${item.category} | Qty: ${item.qty}`
-  ) .join("\n");
+  // ✅ WhatsApp Button Update
+  let waBtn = document.getElementById("confirm-btn");
+  if (waBtn) {
+    let message = cart.map((item, i) =>
+      `${i + 1}. ${item.name} | ${item.category} | Qty: ${item.qty}`
+    ).join("\n");
 
-  waBtn.href = `https://wa.me/8801810962851?text=${encodeURIComponent(message)}`;
-  waBtn.setAttribute("target", "_blank"); // <-- নতুন ট্যাবে খোলার জন্য
+    waBtn.href = `https://wa.me/8801810962851?text=${encodeURIComponent(message)}`;
+    waBtn.setAttribute("target", "_blank");
+  }
 }
 
-}
 
 // ==================== Product Detail Page ====================
 async function loadProductDetail() {
@@ -314,3 +333,162 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 // If main page with product grid
+// ==================== Init ====================
+document.addEventListener("DOMContentLoaded", () => {
+  updateCartUI();
+  // If product page
+  if (document.body.classList.contains("product-page")) {
+    loadProductDetail();
+  }
+});
+
+// ==================== Init ====================
+document.addEventListener("DOMContentLoaded", () => {
+  updateCartUI();
+  if (document.body.classList.contains("product-page")) {
+    loadProductDetail();
+  }
+});
+
+const cartIcon = document.getElementById("cart-icon");
+let isDragging = false;
+let offsetX, offsetY;
+let startX, startY;
+let moved = false; // ✅ detect move
+
+// ==================== Mouse Events ====================
+cartIcon.addEventListener("mousedown", (e) => {
+  isDragging = true;
+  moved = false;
+  startX = e.clientX;
+  startY = e.clientY;
+  offsetX = e.clientX - cartIcon.getBoundingClientRect().left;
+  offsetY = e.clientY - cartIcon.getBoundingClientRect().top;
+  cartIcon.style.transition = "none";
+});
+
+document.addEventListener("mousemove", (e) => {
+  if (!isDragging) return;
+
+  let diffX = Math.abs(e.clientX - startX);
+  let diffY = Math.abs(e.clientY - startY);
+  if (diffX > 5 || diffY > 5) moved = true; // ✅ drag detect
+
+  let x = e.clientX - offsetX;
+  let y = e.clientY - offsetY;
+
+  let maxX = window.innerWidth - cartIcon.offsetWidth;
+  let maxY = window.innerHeight - cartIcon.offsetHeight;
+
+  if (x < 0) x = 0;
+  if (y < 0) y = 0;
+  if (x > maxX) x = maxX;
+  if (y > maxY) y = maxY;
+
+  cartIcon.style.left = x + "px";
+  cartIcon.style.top = y + "px";
+  cartIcon.style.right = "auto";
+  cartIcon.style.bottom = "auto";
+});
+
+document.addEventListener("mouseup", () => {
+  if (isDragging) {
+    isDragging = false;
+    cartIcon.style.transition = "transform 0.2s";
+  }
+});
+
+// ==================== Touch Events (Mobile) ====================
+cartIcon.addEventListener("touchstart", (e) => {
+  isDragging = true;
+  moved = false;
+  let touch = e.touches[0];
+  startX = touch.clientX;
+  startY = touch.clientY;
+  offsetX = touch.clientX - cartIcon.getBoundingClientRect().left;
+  offsetY = touch.clientY - cartIcon.getBoundingClientRect().top;
+  cartIcon.style.transition = "none";
+}, { passive: true });
+
+document.addEventListener("touchmove", (e) => {
+  if (!isDragging) return;
+  let touch = e.touches[0];
+
+  let diffX = Math.abs(touch.clientX - startX);
+  let diffY = Math.abs(touch.clientY - startY);
+  if (diffX > 5 || diffY > 5) moved = true; // ✅ drag detect
+
+  let x = touch.clientX - offsetX;
+  let y = touch.clientY - offsetY;
+
+  let maxX = window.innerWidth - cartIcon.offsetWidth;
+  let maxY = window.innerHeight - cartIcon.offsetHeight;
+
+  if (x < 0) x = 0;
+  if (y < 0) y = 0;
+  if (x > maxX) x = maxX;
+  if (y > maxY) y = maxY;
+
+  cartIcon.style.left = x + "px";
+  cartIcon.style.top = y + "px";
+  cartIcon.style.right = "auto";
+  cartIcon.style.bottom = "auto";
+}, { passive: true });
+
+document.addEventListener("touchend", () => {
+  if (isDragging) {
+    isDragging = false;
+    cartIcon.style.transition = "transform 0.2s";
+  }
+});
+
+// ==================== Toggle Mini Cart (click only) ====================
+cartIcon.addEventListener("click", function(e) {
+  if (moved) return; // ✅ drag করলে click কাজ করবে না
+  let miniCart = document.getElementById("mini-cart");
+  miniCart.style.display = (miniCart.style.display === "flex") ? "none" : "flex";
+});
+
+// ==================== Add to Cart ====================
+function addToCart(id, name, category, stock, qty = 1) {
+  let existing = cart.find(item => item.id === id);
+  if (existing) {
+    if (existing.qty + qty <= stock) {
+      existing.qty += qty;
+    } else {
+      alert("Stock limit reached!");
+    }
+  } else {
+    if (qty <= stock) {
+      cart.push({ id, name, category, qty });
+    } else {
+      alert("Out of stock!");
+    }
+  }
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartUI();
+
+  // 🔔 Big Bounce effect on cart icon
+  cartIcon.classList.add("bounce");
+  setTimeout(() => cartIcon.classList.remove("bounce"), 600);
+}
+
+// ==================== Animate Product Cards ====================
+function animateOnScroll() {
+  const cards = document.querySelectorAll(".product-card");
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+        observer.unobserve(entry.target); // একবার animate হয়ে গেলে আর observe করবে না
+      }
+    });
+  }, { threshold: 0.2 });
+
+  cards.forEach(card => observer.observe(card));
+}
+
+// যখন product load হবে তখনই call করো
+document.addEventListener("DOMContentLoaded", () => {
+  animateOnScroll();
+});

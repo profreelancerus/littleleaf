@@ -173,6 +173,9 @@ header button:hover {
   color: #fff;
   border: none;
 }
+.add-btn.out-stock:hover {
+  background-color: rgb(255, 0, 0); /* hover এ রং পরিবর্তন হবে না */
+}
 
 header button.active {
   border-bottom: 7px solid #edf046;
@@ -341,6 +344,96 @@ header button.active {
 .cart-items::-webkit-scrollbar-thumb:hover {
   background: #999;
 }
+/* Cart Icon */
+.cart-icon {
+  position: fixed;
+  bottom: 110px;
+  right: 20px;
+  width: 55px;
+  height: 55px;
+  background: #25d366;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  cursor: pointer;
+  z-index: 100;
+  color: #fff;
+  font-size: 22px;
+}
+.cart-icon .cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: red;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Mini Cart (Hidden by default) */
+.mini-cart {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 1px solid #ddd;
+  padding: 10px 15px;
+  display: none;  /* hidden */
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+  z-index: 99;
+  gap: 10px;
+}
+/* Cart Icon Floating Ball */
+.cart-icon {
+  position: fixed;
+  bottom: 110px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: #25d366;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+  cursor: grab;
+  z-index: 1000;
+  color: #fff;
+  font-size: 24px;
+  user-select: none;
+  transition: transform 0.2s;
+}
+.cart-icon:active {
+  cursor: grabbing;
+  transform: scale(0.95);
+}
+.cart-icon .cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: red;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 /* Confirm Button */
 .confirm-btn {
@@ -394,6 +487,90 @@ header button.active {
   margin-left: 5px;
   transition: 0.2s;
 }
+/* Cart Toggle Button */
+#cart-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #25d366;
+  color: #fff;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 2001;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Cart Panel */
+#cart {
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 300px;
+  height: 100%;
+  background: #f1faee;
+  border-left: 2px solid #ccc;
+  padding: 1rem;
+  transition: 0.4s ease-in-out;
+  box-shadow: -4px 0 12px rgba(0,0,0,0.2);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+}
+
+#cart.active {
+  right: 0;
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#cart-items {
+  list-style: none;
+  padding: 0;
+  flex: 1;
+  overflow-y: auto;
+  margin: 1rem 0;
+}
+
+#cart-items li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.7rem;
+  background: #fff;
+  padding: 0.5rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+#cart-items button {
+  background: #e63946;
+  border: none;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#place-order {
+  background: #1d3557;
+  color: white;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: auto;
+}
+
+#place-order:hover {
+  background: #0d223b;
+}
+
 
 .mini-cart .cart-items button:hover {
   background: #d9363e;
@@ -531,3 +708,337 @@ header button.active {
   }
 }
 /* End of Footer CSS */
+/* ====== Product CSS ====== */
+ /* ===== General Styles ===== */
+    body {
+      font-family: "Quicksand", sans-serif;
+      background: #ffffff;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    /*priceold*/
+    .priceold {
+      font-size: 25px;
+      color: rgba(255, 38, 0, 0.938);
+      text-align: center;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    /* ===== Header ===== */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: left ;
+      padding: 10px 20px;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    /* Logo + Site Name */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .logo-container img {
+      height: 50px;
+      margin-right: 10px;
+    }
+    /*discount tag*/
+    .pricecurrent {
+      font-size: 15px;
+      color: #4caf50;
+      text-align: center;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    /* Navigation Buttons */
+    .nav-buttons {
+      display: flex;
+      flex-direction: row;
+      gap: 7px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .nav-buttons button {
+      background: #4caf50;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: #333 0px 2px 10px 0px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .nav-buttons button.back-btn {
+      background: #ddd;
+      color: #5a591b;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .nav-buttons button:hover {
+      background: #45a049;
+    }
+
+    /* Back Button */
+    .back-btn {
+      padding: 15px 20px;
+    }
+    .back-btn button {
+      background: #ddd;
+      color: #5a591b;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .back-btn button:hover {
+      background: #bbb;
+    }
+
+    /* ===== Product Detail ===== */
+    .product-detail {
+      max-width: 900px;
+      margin: 20px auto;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      padding: 20px;
+      box-shadow: #333 0px 2px 10px 0px;
+    }
+
+    /* Gallery */
+    .gallery {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      margin-bottom: 15px;
+    }
+    .gallery img {
+      width: 100%;
+      display: none;
+      border-radius: 20px;
+      transition: 0.5s ease;
+    }
+    .gallery img.active {
+      display: block;
+    }
+    .gallery-controls {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .gallery-controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* দুই বাটনের মধ্যে স্পেস */
+  margin-top: 20px;
+}
+
+.gallery-controls button {
+  background: linear-gradient(135deg, #4caf50, #45a049);
+  color: #fff;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  gap: 8px; /* টেক্সট আর আইকনের মাঝে ফাঁকা */
+}
+
+.gallery-controls button:hover {
+  background: linear-gradient(135deg, #45a049, #3e8e41);
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 12px rgba(0,0,0,0.4);
+}
+
+.gallery-controls button:active {
+  transform: translateY(0);
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+}
+    .gallery-controls button:hover {
+      background: #45a049;
+    }
+
+    /* Product Info */
+    h2 {
+      font-size: 28px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .desc {
+      font-size: 16px;
+      line-height: 1.5;
+      text-align: center;
+      color: #555;
+      margin-bottom: 20px;
+    }
+    .info {
+      list-style: none;
+      padding: 0 20px;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    .info li {
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    /* Quantity & Add to Cart */
+    .quantity-control {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .quantity-control button {
+      background: #4caf50;
+      color: #fff;
+      border: none;
+      width: 45px;
+      height: 45px;
+      font-size: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: #333 0px 2px 10px 0px;
+    }
+    .quantity-control button:hover {
+      background: #45a049;
+    }
+    #qty {
+      font-size: 18px;
+      font-weight: bold;
+      min-width: 35px;
+      text-align: center;
+    }
+
+    #add-btn {
+      display: block;
+      margin: 0 auto 30px auto;
+      background: #ff7f50;
+      color: #fff;
+      border: none;
+      padding: 15px 50px;
+      border-radius: 30px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: #333 0px 2px 10px 0px;
+    }
+    #add-btn:hover {
+      background: #ff6347;
+    }
+    #add-btn.out-stock {
+      background: red;
+      cursor: not-allowed;
+      opacity: 0.8;
+    }
+/* Big Bounce Animation */
+@keyframes cart-big-bounce {
+  0%, 100% { transform: scale(1); }
+  40% { transform: scale(1.6); }  /* অনেক বড়ো হবে */
+  60% { transform: scale(0.9); }  /* সামান্য ছোট হবে */
+}
+
+.cart-icon.bounce {
+  animation: cart-big-bounce 0.6s ease;
+}
+
+/* Cart Count Animation */
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: red;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.cart-count.animate {
+  animation: pop-bounce 0.6s ease;
+}
+
+@keyframes pop-bounce {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.6); }
+  60%  { transform: scale(0.8); }
+  80%  { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+    
+/* শুরুতে লুকানো থাকবে */
+.product-card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.6s ease-out;
+}
+
+/* যখন viewport এ আসবে */
+.product-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* চারদিক থেকে আসার animation */
+.product-card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease-out;
+}
+
+.product-card.show {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.from-left {
+  transform: translateX(-100px);
+}
+.from-right {
+  transform: translateX(100px);
+}
+.from-top {
+  transform: translateY(-100px);
+}
+.from-bottom {
+  transform: translateY(100px);
+}
