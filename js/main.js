@@ -131,7 +131,7 @@ function updateCartUI() {
     cartDiv.innerHTML = `
       <div class="empty-cart">
         <img src="/image/cry.jpg" alt="Cart is empty" class="empty-cart-img">
-        <p>Cart is empty</p>
+        <p class="empty-text">Cart is empty</p>
       </div>
     `;
     if (cartCount) cartCount.innerText = "0";
@@ -144,13 +144,13 @@ function updateCartUI() {
           total += itemTotal;
           return `
             <div class="cart-slide">
-              <span>${item.name} (${item.category})</span>
+              <span class="cart-name">${item.name} (${item.category})</span>
               <div class="qty-control">
                 <button onclick="decreaseQty('${item.id}')">-</button>
                 <span>${item.qty}</span>
                 <button onclick="increaseQty('${item.id}')">+</button>
               </div>
-              <span>${item.price}৳ x ${item.qty} = <b>${itemTotal}৳</b></span>
+              <span class="cart-price">${item.price}৳ x ${item.qty} = <b>${itemTotal}৳</b></span>
               <button class="remove-btn" onclick="removeFromCart('${item.id}')">&times;</button>
             </div>
           `;
@@ -160,22 +160,21 @@ function updateCartUI() {
     `;
     if (cartCount) cartCount.innerText = cart.reduce((sum, item) => sum + item.qty, 0);
   }
-}
 
-
-  // WhatsApp Button update
+  // ==================== WhatsApp Button update ====================
   const waBtn = document.getElementById("confirm-btn");
   if (waBtn) {
+    // এখানে শুধু নাম + quantity যাবে
     const message = cart.map((item, i) =>
-      `${i + 1}. ${item.name} | Qty: ${item.qty} | Price: ${item.price}৳ | Subtotal: ${item.price * item.qty}৳`
+      `${i + 1}. ${item.name} | Qty: ${item.qty}`
     ).join("\n");
 
-    const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-
-    waBtn.href = `https://wa.me/8801810962851?text=${encodeURIComponent(message + "\n\nTotal: " + total + "৳")}`;
+    waBtn.href = `https://wa.me/8801810962851?text=${encodeURIComponent(message)}`;
     waBtn.setAttribute("target", "_blank");
   }
+}
 
+// ==================== Change Quantity (for mini cart buttons) ====================
 
 function changeQty(id, delta) {
   const idx = cart.findIndex(it => it.id === id);
@@ -440,4 +439,17 @@ const miniCartOverlay = document.getElementById("mini-cart-overlay"); // যদ�
 backCartBtn.addEventListener("click", () => {
   miniCartEl.classList.remove("show");
   if(miniCartOverlay) miniCartOverlay.classList.remove("show");
+});
+const cartIcon = document.getElementById("cart-icon");
+const miniCart = document.getElementById("mini-cart");
+const backBtn = document.getElementById("back-btn");
+
+// Cart icon click → open mini cart
+cartIcon.addEventListener("click", () => {
+  miniCart.classList.add("show");
+});
+
+// Back button click → close mini cart
+backBtn.addEventListener("click", () => {
+  miniCart.classList.remove("show");
 });
