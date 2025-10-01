@@ -35,7 +35,6 @@
   border-radius: 50%; /* একদম গোল */
 }
 
-
 .header-container .banner {
   height: 50px;
   border-radius: 12px;
@@ -51,7 +50,7 @@
   <!-- Header Navigation -->
   <header>
     <div class="nav-buttons">
-      <button class="back-btn" onclick="history.back()">
+      <button class="back-btnn" onclick="history.back()">
         <i class="fas fa-arrow-left"></i>
       </button>
       <button onclick="window.location.href='../kodomo.html'">KODOMO</button>
@@ -87,16 +86,25 @@
     <button id="add-btn">Add to Cart</button>
   </main>
 
-  
+   
+
+ <!-- Cart Icon -->
+<div class="cart-icon" id="cart-icon">
+  <i class="fas fa-shopping-bag"></i>
+  <span class="cart-count" id="cart-count">0</span>
+</div>
+ 
 <!-- Mini Cart -->
 <div class="mini-cart" id="mini-cart">
+  <button class="back-btn" id="back-btn">← Back</button>
   <div class="cart-items" id="cart-items">
     Cart is empty
   </div>
   <a href="#" class="confirm-btn" id="confirm-btn" target="_blank">
-    <i class="fab fa-whatsapp"></i> WhatsApp
+ Confirm via WhatsApp <br><i class="fab fa-whatsapp"></i>
   </a>
 </div>
+
 
   <script src="../js/main.js"></script>
 </body>
