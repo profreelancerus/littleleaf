@@ -71,7 +71,9 @@ async function loadProducts(jsonFile) {
 
 // ==================== Add / Remove / Update Cart ====================
 function addToCart(id, name, category, stock, price, qty = 1) {
-  let existing = cart.find(item => item.id === id);
+  // ensure id is string
+  id = String(id);
+  let existing = cart.find(item => String(item.id) === id);
   if (existing) {
     if (existing.qty + qty <= stock) {
       existing.qty += qty;
@@ -88,17 +90,18 @@ function addToCart(id, name, category, stock, price, qty = 1) {
   localStorage.setItem("cart", JSON.stringify(cart));
   updateCartUI();
   animateCartIcon();
-
 }
 
 // Quantity কমানো
 function decreaseQty(id) {
-  let item = cart.find(p => p.id === id);
+  id = String(id);
+  let item = cart.find(p => String(p.id) === id);
   if (item) {
     if (item.qty > 1) {
       item.qty -= 1;
     } else {
       removeFromCart(id);
+      return;
     }
     localStorage.setItem("cart", JSON.stringify(cart));
     updateCartUI();
@@ -107,8 +110,9 @@ function decreaseQty(id) {
 
 // Quantity বাড়ানো
 function increaseQty(id) {
-  let item = cart.find(p => p.id === id);
-  if (item && item.qty < item.stock) {
+  id = String(id);
+  let item = cart.find(p => String(p.id) === id);
+  if (item && item.qty < (item.stock || Infinity)) {
     item.qty += 1;
     localStorage.setItem("cart", JSON.stringify(cart));
     updateCartUI();
@@ -116,7 +120,8 @@ function increaseQty(id) {
 }
 
 function removeFromCart(id) {
-  cart = cart.filter(item => item.id !== id);
+  id = String(id);
+  cart = cart.filter(item => String(item.id) !== id);
   localStorage.setItem("cart", JSON.stringify(cart));
   updateCartUI();
 }
@@ -125,71 +130,105 @@ function removeFromCart(id) {
 function updateCartUI() {
   const cartDiv = document.getElementById("cart-items");
   const cartCount = document.getElementById("cart-count");
+  const cartHeader = document.querySelector(".mini-cart .cart-header"); // header area where total will show
   if (!cartDiv) return;
 
-  if (cart.length === 0) {
+  // empty cart
+  if (!cart || cart.length === 0) {
+    // show empty state
     cartDiv.innerHTML = `
-      <div class="empty-cart">
-        <img src="/image/cry.jpg" alt="Cart is empty" class="empty-cart-img">
-        <p class="empty-text">Cart is empty</p>
+      <div class="empty-cart" style="text-align:center; padding:18px;">
+        <img src="/image/cry.jpg" alt="Cart is empty" class="empty-cart-img" style="width:96px; height:96px; object-fit:cover; opacity:0.95;">
+        <p class="empty-text" style="margin-top:10px; color:#555; font-weight:600;">Cart is empty</p>
       </div>
     `;
     if (cartCount) cartCount.innerText = "0";
-  } else {
-    let total = 0;
-    cartDiv.innerHTML = `
-      <div class="cart-slider">
-        ${cart.map((item) => {
-          let itemTotal = item.price * item.qty;
-          total += itemTotal;
-          return `
-            <div class="cart-slide">
-              <span class="cart-name">${item.name} (${item.category})</span>
-              <div class="qty-control">
-                <button onclick="decreaseQty('${item.id}')">-</button>
-                <span>${item.qty}</span>
-                <button onclick="increaseQty('${item.id}')">+</button>
-              </div>
-              <span class="cart-price">${item.price}৳ x ${item.qty} = <b>${itemTotal}৳</b></span>
-              <button class="remove-btn" onclick="removeFromCart('${item.id}')">&times;</button>
-            </div>
-          `;
-        }).join("")}
-        <div class="cart-total">Total: <b>${total}৳</b></div>
-      </div>
-    `;
-    if (cartCount) cartCount.innerText = cart.reduce((sum, item) => sum + item.qty, 0);
+    if (cartHeader) cartHeader.innerHTML = `<h4 style="margin:0; font-size:15px; color:#333;">Total:</h4><div id="cart-total-amount" style="font-weight:700; color:#e63946; margin-top:6px;">0৳</div>`;
+    // update whatsapp link to inactive
+    const waBtn = document.getElementById("confirm-btn");
+    if (waBtn) { waBtn.href = "#"; waBtn.removeAttribute("target"); }
+    return;
   }
 
-  // ==================== WhatsApp Button update ====================
+  // when there are items
+  let total = 0;
+  // build item blocks (stylish)
+  const itemsHtml = cart.map(item => {
+    const itemPrice = Number(item.price || 0);
+    const itemQty = Number(item.qty || 0);
+    const itemTotal = itemPrice * itemQty;
+    total += itemTotal;
+
+    // compact, readable item row — no image (as you requested to stop adding image)
+    return `
+      <div class="cart-slide" style="display:flex; gap:12px; align-items:center; padding:10px; border-radius:8px; background:linear-gradient(180deg,#f8fff8,#fff8e6); box-shadow: 0 2px 6px rgba(0,0,0,0.04); margin-bottom:10px;">
+        <div style="flex:1; min-width:0;">
+          <div class="cart-name" style="font-weight:700; font-size:14px; color:#123; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${escapeHtml(item.name)}</div>
+          <div style="margin-top:6px; display:flex; align-items:center; gap:8px;">
+            <div class="qty-control" style="display:flex; align-items:center; gap:6px;">
+              <button onclick="decreaseQty('${escapeJs(String(item.id))}')" style="padding:5px 8px; border-radius:6px; border:1px solid #ddd; background:#fff; cursor:pointer;">−</button>
+              <span style="min-width:22px; text-align:center; font-weight:600;">${itemQty}</span>
+              <button onclick="increaseQty('${escapeJs(String(item.id))}')" style="padding:5px 8px; border-radius:6px; border:1px solid #ddd; background:#fff; cursor:pointer;">＋</button>
+            </div>
+            <div style="font-size:13px; color:#666;">${escapeHtml(item.category || "")}</div>
+          </div>
+        </div>
+
+        <div style="text-align:right; min-width:110px;">
+          <div style="font-weight:700; color:#e63946;">${itemPrice}৳</div>
+          <div style="font-size:13px; color:#333; margin-top:6px;">= <b>${itemTotal}৳</b></div>
+          <div><button class="remove-btn" onclick="removeFromCart('${escapeJs(String(item.id))}')" style="background:transparent; border:none; color:#c12; font-size:18px; cursor:pointer; margin-top:6px;">&times;</button></div>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  // place items into cartDiv
+  cartDiv.innerHTML = `<div class="cart-slider">${itemsHtml}</div>`;
+
+  // update header total area (if exists)
+  if (cartHeader) {
+    // keep "Back" button (if present) separate in your HTML; here we set the Total display
+    cartHeader.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
+        <h4 style="margin:0; font-size:15px; color:#333;">Total:</h4>
+        <div id="cart-total-amount" style="font-weight:800; color:#1d3557; font-size:16px;">${total}৳</div>
+      </div>
+    `;
+  } else {
+    // fallback: append a visible total inside cartDiv
+    const footer = document.createElement('div');
+    footer.className = 'cart-total';
+    footer.style = "margin-top:8px; padding-top:8px; border-top:1px solid #eee; display:flex; justify-content:space-between; align-items:center;";
+    footer.innerHTML = `<span style="font-weight:600">Total</span> <strong style="color:#e63946">${total}৳</strong>`;
+    cartDiv.appendChild(footer);
+  }
+
+  // update counter badge
+  if (cartCount) cartCount.innerText = cart.reduce((sum, item) => sum + Number(item.qty || 0), 0);
+
+  // update WhatsApp Button (only name + qty)
   const waBtn = document.getElementById("confirm-btn");
   if (waBtn) {
-    // এখানে শুধু নাম + quantity যাবে
     const message = cart.map((item, i) =>
       `${i + 1}. ${item.name} | Qty: ${item.qty}`
     ).join("\n");
-
     waBtn.href = `https://wa.me/8801810962851?text=${encodeURIComponent(message)}`;
     waBtn.setAttribute("target", "_blank");
   }
 }
 
-// ==================== Change Quantity (for mini cart buttons) ====================
-
-function changeQty(id, delta) {
-  const idx = cart.findIndex(it => it.id === id);
-  if (idx === -1) return;
-  const item = cart[idx];
-  const newQty = item.qty + delta;
-  if (newQty <= 0) {
-    // remove
-    cart.splice(idx, 1);
-  } else {
-    // check stock? We don't have stock in cart items here except when added — assume ok
-    item.qty = newQty;
-  }
-  localStorage.setItem("cart", JSON.stringify(cart));
-  updateCartUI();
+// helper escaping (reuse if already present in your file)
+function escapeHtml(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+function escapeJs(s) {
+  return String(s == null ? "" : s).replace(/'/g, "\\'");
 }
 
 // ==================== Animate Product Cards ====================
@@ -453,3 +492,38 @@ cartIcon.addEventListener("click", () => {
 backBtn.addEventListener("click", () => {
   miniCart.classList.remove("show");
 });
+// Close mini-cart when clicking / touching outside of it.
+// Put this after miniCartEl and cartIconEl are defined.
+
+(function enableOutsideCloseMiniCart() {
+  // get elements (in case they weren't captured earlier)
+  const mini = document.getElementById('mini-cart');
+  const icon = document.getElementById('cart-icon');
+  if (!mini) return; // nothing to do
+
+  // ensure clicks inside mini don't bubble to document (safety - harmless if already present)
+  mini.addEventListener('click', function (e) { e.stopPropagation(); });
+
+  // optional: if you have a side-panel close/back button ensure it also stops propagation
+  const insideBtns = mini.querySelectorAll('button, a');
+  insideBtns.forEach(btn => btn.addEventListener('click', e => e.stopPropagation()));
+
+  // click outside -> close
+  document.addEventListener('click', function (e) {
+    // if mini not open, ignore
+    if (!mini.classList.contains('show')) return;
+    // if click on cart icon (toggle) ignore
+    if (icon && icon.contains(e.target)) return;
+    // if click inside mini ignore (should be prevented above), otherwise close
+    if (!mini.contains(e.target)) mini.classList.remove('show');
+  });
+
+  // also handle touch on mobile
+  document.addEventListener('touchstart', function (e) {
+    if (!mini.classList.contains('show')) return;
+    if (icon && icon.contains(e.target)) return;
+    if (!mini.contains(e.target)) mini.classList.remove('show');
+  }, { passive: true });
+})();
+
+

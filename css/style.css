@@ -1183,3 +1183,11 @@ header button.active {
   object-fit: contain;
   opacity: 0.7;
 }
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 10px;
+  margin: 17px 0 0 200px;
+}
