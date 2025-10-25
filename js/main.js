@@ -213,7 +213,7 @@ function updateCartUI() {
     const message = cart.map((item, i) =>
       `${i + 1}. ${item.name} | Qty: ${item.qty}`
     ).join("\n");
-    waBtn.href = `https://wa.me/8801810962851?text=${encodeURIComponent(message)}`;
+    waBtn.href = `https://wa.me/8801909133662?text=${encodeURIComponent(message)}`;
     waBtn.setAttribute("target", "_blank");
   }
 }
