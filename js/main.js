@@ -295,7 +295,7 @@ function updateCartUI() {
   const waBtn = document.getElementById("confirm-btn");
   if (waBtn) {
     const message = cart.map((it,i) => `${i+1}. ${it.name} | Qty: ${it.qty}`).join("\n");
-    waBtn.href = `https://wa.me/8801909133662?text=${encodeURIComponent(message)}`;
+    waBtn.href = `https://wa.me/8801410009588?text=${encodeURIComponent(message)}`;
     waBtn.setAttribute("target", "_blank");
     waBtn.classList && waBtn.classList.remove('disabled');
   }
