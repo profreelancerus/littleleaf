@@ -616,14 +616,14 @@ backBtn.addEventListener("click", () => {
   }, { passive: true });
 })();
 //new application code can be added here
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("/service-worker.js")
-      .then(() => console.log("✅ Service Worker Registered"))
-      .catch(err => console.log("❌ SW Error", err));
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(reg => console.log('SW registered:', reg.scope))
+      .catch(err => console.log('SW failed:', err));
   });
 }
+
  let deferredPrompt;
 const installBtn = document.getElementById("installAppBtn");
 
