@@ -615,3 +615,28 @@ backBtn.addEventListener("click", () => {
     if (!mini.contains(e.target)) mini.classList.remove('show');
   }, { passive: true });
 })();
+//new application code can be added here
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then(() => console.log("✅ Service Worker Registered"))
+      .catch(err => console.log("❌ SW Error", err));
+  });
+}
+ let deferredPrompt;
+const installBtn = document.getElementById("installAppBtn");
+
+window.addEventListener("beforeinstallprompt", e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = "block";
+});
+
+installBtn?.addEventListener("click", () => {
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(() => {
+    installBtn.style.display = "none";
+  });
+});
+// installation code ends here
