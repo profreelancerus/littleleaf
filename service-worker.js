@@ -1,19 +1,7 @@
 const CACHE_NAME = "littleleaf-v1";
 
 const FILES_TO_CACHE = [
-  "/",
-  "/index.html",
-  "/style.css",
-  "/js/main.js",
-
-  "/kodomo.html",
-  "/kidlon.html",
-  "/parfum.html",
-  "/product/product.html",
-
-  "/manifest.json",
-  "/icons/icon-192.png",
-  "/icons/icon-512.png"
+ 
 ];
 
 // INSTALL
