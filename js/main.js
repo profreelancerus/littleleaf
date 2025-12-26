@@ -624,19 +624,19 @@ if ('serviceWorker' in navigator) {
   });
 }
 
- let deferredPrompt;
-const installBtn = document.getElementById("installAppBtn");
+let deferredPrompt;
 
 window.addEventListener("beforeinstallprompt", e => {
   e.preventDefault();
   deferredPrompt = e;
-  installBtn.style.display = "block";
+  document.getElementById("installBtn").style.display = "block";
 });
 
-installBtn?.addEventListener("click", () => {
+document.getElementById("installBtn")?.addEventListener("click", async () => {
+  if (!deferredPrompt) return;
   deferredPrompt.prompt();
-  deferredPrompt.userChoice.then(() => {
-    installBtn.style.display = "none";
-  });
+  const { outcome } = await deferredPrompt.userChoice;
+  deferredPrompt = null;
 });
+
 // installation code ends here

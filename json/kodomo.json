@@ -13,7 +13,7 @@
       "country_of_origin": "THAILAND",
       "manufacturer": {"name": "Lion Corporation (Thailand) Limited", "address": "989 Kingbridge Tower, Floor 36-37, Rama 3 Road, Bangpongpang, Yannawa, Bangkok 10120, Thailand"},
       "importer": {"name": "Pentagon International Limited", "address": "Rangs Nasim Square,275/D, Suite #C 11, Lift Level #11C, Road #27, Dhanmondi, Dhaka-1209, Bangladesh"},
-      "stock": 0,
+      "stock": 10,
       "note": "Please check the importer sticker on each product before purchase.",
       "min_order_quantity": 1,
       "max_order_quantity": 5,
