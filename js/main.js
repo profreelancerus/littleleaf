@@ -640,43 +640,57 @@ document.getElementById("installBtn")?.addEventListener("click", async () => {
 });
 
 // installation code ends here
-// code churi bondho korar upay
-// Right click বন্ধ করা 
-document.addEventListener("contextmenu", e => e.preventDefault());
+/* ======================================
+   DEV MODE DETECTION
+   Live Server + Dev Unlock
+====================================== */
+const DEV_MODE =
+  location.hostname === "localhost" ||
+  location.hostname === "127.0.0.1" ||
+  location.hostname === "0.0.0.0" ||
+  new URLSearchParams(location.search).has("dev");
 
-// Keyboard shortcut ব্লক করা
+/* ======================================
+   PROTECTION (ONLY FOR LIVE SITE)
+====================================== */
+if (!DEV_MODE) {
 
-document.addEventListener("keydown", e => {
-  if (
-    e.key === "F12" ||
-    (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
-    (e.ctrlKey && e.key === "U")
-  ) {
-    e.preventDefault();
-  }
-});
+  // 🚫 Right click off
+  document.addEventListener("contextmenu", e => e.preventDefault());
 
-// DevTools খোলা হলে site blank করা (strong deterrent)
-(function () {
-  let devtoolsOpen = false;
-  const threshold = 160;
-
-  setInterval(() => {
-    const widthDiff = window.outerWidth - window.innerWidth;
-    const heightDiff = window.outerHeight - window.innerHeight;
-
-    if (widthDiff > threshold || heightDiff > threshold) {
-      if (!devtoolsOpen) {
-        devtoolsOpen = true;
-        document.body.innerHTML = "<h1 style='text-align:center;margin-top:20%'>🔒 Access Denied</h1>";
-      }
+  // 🚫 Inspect / View source shortcut off
+  document.addEventListener("keydown", e => {
+    if (
+      e.key === "F12" ||
+      (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
+      (e.ctrlKey && e.key === "U")
+    ) {
+      e.preventDefault();
     }
-  }, 500);
-})();
+  });
 
-// Image drag & right click বন্ধ 
-document.querySelectorAll("img").forEach(img => {
-  img.setAttribute("draggable", "false");
-  img.addEventListener("contextmenu", e => e.preventDefault());
-});
+  // 🚫 Image drag + save off
+  window.addEventListener("load", () => {
+    document.querySelectorAll("img").forEach(img => {
+      img.setAttribute("draggable", "false");
+      img.addEventListener("contextmenu", e => e.preventDefault());
+    });
+  });
 
+  // 🛡️ Soft DevTools detection (NO BLANK PAGE)
+  (function () {
+    const threshold = 160;
+    let warned = false;
+
+    setInterval(() => {
+      const widthDiff = window.outerWidth - window.innerWidth;
+      const heightDiff = window.outerHeight - window.innerHeight;
+
+      if ((widthDiff > threshold || heightDiff > threshold) && !warned) {
+        warned = true;
+        console.warn("DevTools detected");
+      }
+    }, 800);
+  })();
+
+}
