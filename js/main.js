@@ -694,3 +694,14 @@ if (!DEV_MODE) {
   })();
 
 }
+
+/* ===== DEV MODE ===== */
+const DEVMODE =
+  location.hostname === "localhost" ||
+  location.hostname === "127.0.0.1" ||
+  new URLSearchParams(location.search).has("dev");
+
+/* ===== RIGHT CLICK BLOCK (ALL PAGES) ===== */
+if (!DEVMODE) {
+  document.addEventListener("contextmenu", e => e.preventDefault());
+}
