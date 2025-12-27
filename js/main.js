@@ -640,3 +640,43 @@ document.getElementById("installBtn")?.addEventListener("click", async () => {
 });
 
 // installation code ends here
+// code churi bondho korar upay
+// Right click বন্ধ করা 
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+// Keyboard shortcut ব্লক করা
+
+document.addEventListener("keydown", e => {
+  if (
+    e.key === "F12" ||
+    (e.ctrlKey && e.shiftKey && ["I", "J", "C"].includes(e.key)) ||
+    (e.ctrlKey && e.key === "U")
+  ) {
+    e.preventDefault();
+  }
+});
+
+// DevTools খোলা হলে site blank করা (strong deterrent)
+(function () {
+  let devtoolsOpen = false;
+  const threshold = 160;
+
+  setInterval(() => {
+    const widthDiff = window.outerWidth - window.innerWidth;
+    const heightDiff = window.outerHeight - window.innerHeight;
+
+    if (widthDiff > threshold || heightDiff > threshold) {
+      if (!devtoolsOpen) {
+        devtoolsOpen = true;
+        document.body.innerHTML = "<h1 style='text-align:center;margin-top:20%'>🔒 Access Denied</h1>";
+      }
+    }
+  }, 500);
+})();
+
+// Image drag & right click বন্ধ 
+document.querySelectorAll("img").forEach(img => {
+  img.setAttribute("draggable", "false");
+  img.addEventListener("contextmenu", e => e.preventDefault());
+});
+
