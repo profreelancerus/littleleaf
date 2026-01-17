@@ -23,6 +23,13 @@ body {
   z-index: -1;
 }
 
+.verified-tick {
+  color: #1da1f2; /* verified blue */
+  font-size: 0.9em;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
 .start-container {
   display: flex;
   justify-content: center;
