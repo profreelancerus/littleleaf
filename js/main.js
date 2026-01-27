@@ -705,3 +705,26 @@ const DEVMODE =
 if (!DEVMODE) {
   document.addEventListener("contextmenu", e => e.preventDefault());
 }
+
+// Fetch products from Firestore and display in sections
+db.collection("products").get().then(snapshot => {
+  const products = [];
+  snapshot.forEach(doc => products.push(doc.data()));
+
+  const section1 = document.getElementById("section1");
+  const section2 = document.getElementById("section2");
+  const section3 = document.getElementById("section3");
+
+  products.forEach((p, index) => {
+    const html = `<div class="product">
+      <h3>${p.name}</h3>
+      <p>${p.description}</p>
+      <p>Price: ${p.price} ${p.currency}</p>
+      ${p.images.map(url=>`<img src="${url}" width="150">`).join('')}
+    </div>`;
+    
+    if(index % 3 === 0) section1.innerHTML += html;
+    else if(index % 3 === 1) section2.innerHTML += html;
+    else section3.innerHTML += html;
+  });
+});

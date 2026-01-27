@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script src="js/firebase.js"></script>
+</head>
+<body>
+  <h2>Add Product</h2>
+
+  <input type="text" id="id" placeholder="Product ID"><br>
+  <input type="text" id="name" placeholder="Product Name"><br>
+  <input type="number" id="mrp" placeholder="MRP"><br>
+  <input type="number" id="offer" placeholder="Offer %"><br>
+  <input type="number" id="price" placeholder="Price"><br>
+  <input type="text" id="currency" placeholder="Currency"><br>
+  <textarea id="description" placeholder="Description"></textarea><br>
+  <input type="number" id="stock" placeholder="Stock"><br>
+  <input type="file" id="images" multiple><br>
+  <button onclick="submitProduct()">Submit Product</button>
+
+  <script>
+    auth.onAuthStateChanged(user => {
+      if(!user) window.location.href="login.html";
+    });
+
+    async function submitProduct() {
+      const id = document.getElementById('id').value;
+      const name = document.getElementById('name').value;
+      const mrp = Number(document.getElementById('mrp').value);
+      const offer = Number(document.getElementById('offer').value);
+      const price = Number(document.getElementById('price').value);
+      const currency = document.getElementById('currency').value;
+      const description = document.getElementById('description').value;
+      const stock = Number(document.getElementById('stock').value);
+
+      // Upload multiple images
+      const files = document.getElementById('images').files;
+      const imageUrls = [];
+      for(let file of files){
+        const ref = storage.ref('products/'+id+'/'+file.name);
+        await ref.put(file);
+        imageUrls.push(await ref.getDownloadURL());
+      }
+
+      // Save to Firestore
+      await db.collection('products').doc(id).set({
+        id, name, mrp, offer, price, currency, description, stock, images: imageUrls
+      });
+
+      alert("Product uploaded successfully!");
+    }
+  </script>
+</body>
+</html>
