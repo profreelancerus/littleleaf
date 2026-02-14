@@ -56,50 +56,360 @@ body {
   background: #45a049;
 }
 
-/* Header Navigation */
+/* ===============================
+   GLOBAL STYLE
+================================ */
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #f1fdf6, #ffffff);
+}
+
+/* ===============================
+   HEADER (Glass Effect)
+================================ */
+
 header {
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.7);
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 10px;
-  background: #f5f5f5;
-  border-bottom: 1px solid #ddd;
+  justify-content: space-between;
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+  z-index: 100;
 }
 
 header button {
   flex: 1;
+  margin: 0 5px;
   padding: 10px;
+  border-radius: 10px;
   border: none;
-  background: transparent;
-  font-size: 16px;
+  background: #ffffff;
   cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
-/* Product Card */
+
+header button:hover {
+  background: #2d6a4f;
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+/* ===============================
+   PRODUCT GRID
+================================ */
+
+#product-grid {
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Desktop 6 */
+@media (min-width: 1200px) {
+  #product-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* Tablet 3 */
+@media (min-width: 768px) and (max-width: 1199px) {
+  #product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Mobile 2 */
+@media (max-width: 767px) {
+  #product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ===============================
+   PRODUCT CARD (Premium Style)
+================================ */
+
 .product-card {
-  border: 1px solid #ddd;
-  border-radius: 12px;
+  background: #ffffff;
+  border-radius: 18px;
   overflow: hidden;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: #fff;
-  height: 300px; /* কার্ডের fixed height */
-  padding: 10px;
+  height: 320px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+  transition: all 0.4s ease;
+  transform: translateY(20px);
+  opacity: 0;
 }
 
-/* Product Name */
-.product-card h3.truncate {
+/* Scroll Reveal Active */
+.product-card.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Hover 3D Lift */
+.product-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+/* ===============================
+   IMAGE ZOOM EFFECT
+================================ */
+
+.product-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover img {
+  transform: scale(1.1);
+}
+
+/* ===============================
+   PRODUCT NAME
+================================ */
+
+.product-card h3 {
   font-size: 14px;
   font-weight: 600;
-  line-height: 1.2em;
-  height: 2.4em; /* 2 lines height fixed */
+  line-height: 1.3em;
+  height: 2.6em;
   overflow: hidden;
-  text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
-  line-clamp: 2;
   -webkit-box-orient: vertical;
+  margin: 10px 0;
 }
+
+/* ===============================
+   PRICE
+================================ */
+
+.price {
+  font-size: 15px;
+  font-weight: bold;
+  color: #e63946;
+}
+
+/* ===============================
+   BUTTON (Ripple Effect)
+================================ */
+
+.btn-add-to-cart {
+  position: relative;
+  overflow: hidden;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(45deg, #2d6a4f, #40916c);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-add-to-cart:hover {
+  transform: scale(1.05);
+}
+
+/* Ripple Animation */
+.btn-add-to-cart::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  background: rgba(255,255,255,0.4);
+  border-radius: 50%;
+  transform: scale(1);
+  opacity: 0;
+  transition: 0.6s;
+}
+
+.btn-add-to-cart:active::after {
+  width: 200px;
+  height: 200px;
+  opacity: 1;
+  transition: 0s;
+}
+
+#product-grid {
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+}
+
+@media (min-width: 1200px) {
+  #product-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 768px) {
+  #product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  #product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+/* ================================
+   PRODUCT GRID FIX
+================================ */
+
+#product-grid {
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+}
+
+@media (min-width: 1200px) {
+  #product-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (max-width: 1199px) and (min-width: 768px) {
+  #product-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  #product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ================================
+   CINEMATIC ENTRY ANIMATION
+================================ */
+
+.product-card {
+  opacity: 0;
+  animation-duration: 1.4s;
+  animation-fill-mode: forwards;
+}
+
+/* Different directions */
+.product-card:nth-child(3n+1) {
+  animation-name: flyLeft;
+}
+
+.product-card:nth-child(3n+2) {
+  animation-name: flyRight;
+}
+
+.product-card:nth-child(3n+3) {
+  animation-name: flyUp;
+}
+
+/* ================================
+   KEYFRAMES
+================================ */
+
+@keyframes flyLeft {
+  0% {
+    transform: translateX(-500px) rotate(-720deg) scale(0.2);
+    opacity: 0;
+    filter: blur(20px);
+  }
+  60% {
+    transform: translateX(30px) rotate(20deg) scale(1.1);
+    filter: blur(5px);
+  }
+  100% {
+    transform: translateX(0) rotate(0) scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes flyRight {
+  0% {
+    transform: translateX(500px) rotate(720deg) scale(0.2);
+    opacity: 0;
+    filter: blur(20px);
+  }
+  60% {
+    transform: translateX(-30px) rotate(-20deg) scale(1.1);
+    filter: blur(5px);
+  }
+  100% {
+    transform: translateX(0) rotate(0) scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes flyUp {
+  0% {
+    transform: translateY(500px) rotateX(720deg) scale(0.2);
+    opacity: 0;
+    filter: blur(20px);
+  }
+  60% {
+    transform: translateY(-20px) rotateX(-20deg) scale(1.1);
+    filter: blur(5px);
+  }
+  100% {
+    transform: translateY(0) rotateX(0) scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+/* ================================
+   HOVER MADNESS
+================================ */
+
+.product-card:hover {
+  animation: hoverFloat 1.5s infinite alternate ease-in-out;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+@keyframes hoverFloat {
+  from {
+    transform: translateY(0) scale(1);
+  }
+  to {
+    transform: translateY(-10px) scale(1.05);
+  }
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+#product-grid {
+  overflow: hidden;
+}
+
 /* Header Buttons - simple style */
 header {
   display: flex;

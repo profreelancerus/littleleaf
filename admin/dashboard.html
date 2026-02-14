@@ -21,6 +21,7 @@
   <input type="number" id="stock" placeholder="Stock"><br>
   <input type="file" id="images" multiple><br>
   <button onclick="submitProduct()">Submit Product</button>
+  <script src="js/firebase.js"></script>
 
   <script>
     auth.onAuthStateChanged(user => {
@@ -45,6 +46,7 @@
         await ref.put(file);
         imageUrls.push(await ref.getDownloadURL());
       }
+<button type="button" onclick="submitProduct()">Submit Product</button>
 
       // Save to Firestore
       await db.collection('products').doc(id).set({

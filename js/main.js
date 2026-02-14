@@ -728,3 +728,13 @@ db.collection("products").get().then(snapshot => {
     else section3.innerHTML += html;
   });
 });
+
+window.addEventListener("load", () => {
+  const cards = document.querySelectorAll(".product-card");
+
+  cards.forEach((card, index) => {
+    setTimeout(() => {
+      card.classList.add("show");
+    }, index * 150); // faster dramatic entry
+  });
+});
